@@ -76,6 +76,7 @@ const Home = () => {
                 </div>
               </div>
             </Link>
+            <p className={classe.resp_name}>{game.name}</p>
           </div>
         ))}
       </main>

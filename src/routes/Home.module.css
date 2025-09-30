@@ -95,3 +95,27 @@
 .back span {
   color: gold;
 }
+
+.resp_name {
+  position: relative;
+  top: 210px;
+  font-size: 1rem;
+  color: var(--txt);
+  text-align: center;
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+  .back p:first-child {
+    display: none;
+  }
+
+  .resp_name {
+    display: block;
+  }
+
+  .game_container {
+    margin-bottom: 2rem;
+  }
+}
