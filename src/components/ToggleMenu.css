@@ -1,0 +1,41 @@
+#btn-menu {
+    width: 50px;
+    height: 50px;
+    /* border: 2px solid var(--txt); */
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    display: none;
+}
+
+.linha {
+    width: 20px;
+    height: 2px;
+    background-color: var(--txt);
+    display: block;
+    margin: 4px auto;
+    position: relative;
+    transform-origin: center;
+    transition: .3s;
+}
+
+button.active .linha:nth-child(1) {
+    transform: translateY(6px) rotate(-45deg);
+    background-color: var(--txt);
+}
+
+button.active .linha:nth-child(3) {
+    transform: translateY(-6px) rotate(45deg);
+    background-color: var(--txt);
+}
+
+button.active .linha:nth-child(2) {
+    opacity: 0;
+}
+
+@media (max-width: 563px) {
+  #btn-menu {
+    display: block;
+  }
+}

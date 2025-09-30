@@ -1,0 +1,27 @@
+.btn {
+    position: absolute;
+    right: 0;
+    margin-right: 1.5rem;
+    background-color: var(--btnChange);
+    /* border: 1px solid var(--border-shadow); */
+    border: none;
+    margin-top: 1.2rem;
+    cursor: pointer;
+    padding: .6rem;
+    border-radius: 8px;
+    color: var(--txt);
+    display: flex;
+    gap: .3rem;
+    align-items: center;
+    z-index: 1;
+}
+
+.btn:hover {
+    box-shadow: 1px 1px 2px 1px var(--shadow);
+}
+
+@media (max-width: 563px) {
+    .btn {
+    z-index: 1;    
+    }  
+}

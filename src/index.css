@@ -1,0 +1,35 @@
+:root {
+  --bg: #fff;
+  --txt: #147;
+  --btnChange: transparent;
+  --border-shadow: #e6e0e0;
+  --shadow: #cfcfcf;
+}
+
+[data-theme="dark"] {
+  --bg: #1d2631;
+  --txt: #fff;
+  --btnChange: transparent;
+  --border-shadow: #12181f;
+  --shadow: #12181f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Nunito";
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg);
+  color: var(--texto);
+}
