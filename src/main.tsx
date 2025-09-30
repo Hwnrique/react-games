@@ -1,12 +1,15 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 
 import Home from "./routes/Home.tsx";
 import About from "./routes/About.tsx";
 import Follow from "./routes/Follow.tsx";
+import Game from "./routes/Game.tsx";
+import App from "./App.tsx";
+import "./index.css";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <App />,
@@ -24,19 +27,15 @@ const router = createBrowserRouter([
         element: <Follow />,
       },
       {
-        path:"/game/:id",
-        element: <Game />
-      }
+        path: "/game/:id",
+        element: <Game />,
+      },
     ],
   },
 ]);
 
-import "./index.css";
-import App from "./App.tsx";
-import Game from "./routes/Game.tsx";
-
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+    <RouterProvider router={router} />
   </StrictMode>
 );
