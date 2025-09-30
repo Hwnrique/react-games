@@ -1,5 +1,16 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import {
+  FaWindows,
+  FaPlaystation,
+  FaXbox,
+  FaApple,
+  FaLinux,
+  FaAndroid,
+} from "react-icons/fa";
+import { SiNintendo, SiIos } from "react-icons/si";
+import { PiStarFill } from "react-icons/pi";
 
 import Loading from "../components/Loading";
 
@@ -12,7 +23,27 @@ interface Game {
   background_image: string;
   rating: string;
   description: string;
+  platforms: {
+    platform: {
+      id: number;
+      name: string;
+      slug: string;
+    };
+  }[];
 }
+
+const platformIcons: Record<string, React.ReactNode> = {
+  pc: <FaWindows />,
+  playstation5: <FaPlaystation />,
+  playstation4: <FaPlaystation />,
+  "xbox-one": <FaXbox />,
+  "xbox-series-x": <FaXbox />,
+  "nintendo-switch": <SiNintendo />,
+  ios: <SiIos />,
+  macos: <FaApple />,
+  linux: <FaLinux />,
+  android: <FaAndroid />,
+};
 
 const gameURL = "https://api.rawg.io/api/games/";
 const apiKey = import.meta.env.VITE_RAWG_API_KEY;
@@ -25,7 +56,6 @@ const Game = () => {
   const getGame = async (url: string, cacheKey: string) => {
     setIsLoading(true);
 
-    // 1️⃣ Tenta pegar do cache local
     const cached = localStorage.getItem(cacheKey);
     if (cached) {
       console.log("Carregado do cache!");
@@ -34,13 +64,11 @@ const Game = () => {
       return;
     }
 
-    // 2️⃣ Se não tiver no cache, faz fetch
     try {
       const res = await fetch(url);
       const data: Game = await res.json();
       setGame(data);
 
-      // 3️⃣ Salva no cache
       localStorage.setItem(cacheKey, JSON.stringify(data));
       console.log("Carregado da API e salvo no cache!");
     } catch (error) {
@@ -54,7 +82,7 @@ const Game = () => {
     if (!id) return;
 
     const gameUrl = `${gameURL}${id}?key=${apiKey}`;
-    const cacheKey = `game-${id}`; // chave única para cada jogo
+    const cacheKey = `game-${id}`;
 
     getGame(gameUrl, cacheKey);
   }, [id]);
@@ -73,10 +101,33 @@ const Game = () => {
             />
           </div>
           <h1>{game.name}</h1>
-          <div
-            className={classe.desc}
-            dangerouslySetInnerHTML={{ __html: game.description }}
-          />
+          <div className={classe.main}>
+            <div
+              className={classe.desc}
+              dangerouslySetInnerHTML={{ __html: game.description }}
+            />
+            <div className={classe.infos}>
+              <h2>Available on platforms:</h2>
+              <div className={classe.platformIcons}>
+                {game.platforms?.map((item) => {
+                  const slug = item.platform.slug;
+                  const icon = platformIcons[slug];
+                  return icon ? (
+                    <span key={item.platform.id} className={classe.icon}>
+                      {icon}
+                    </span>
+                  ) : null;
+                })}
+                <h3>Rating:</h3>
+                <p className={classe.rating}>
+                    <span className={classe.star}>
+                      <PiStarFill />
+                    </span>{" "}
+                    {game.rating}
+                  </p>
+              </div>
+            </div>
+          </div>
         </>
       )}
     </main>
